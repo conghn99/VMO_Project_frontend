@@ -5,7 +5,7 @@ import { useGetApartmentsQuery } from '../../app/services/apartment.service';
 import { useGetFeesQuery } from '../../app/services/fee.service';
 import { notification } from 'antd';
 import { useDeleteBillMutation, useGetBillByIdQuery, useUpdateBillMutation } from '../../app/services/bill.service';
-import { formatDate } from '../../utils/functionUtils';
+import { formatDate, formatMonth } from '../../utils/functionUtils';
 
 function BillDetail() {
     const { billId } = useParams();
@@ -16,6 +16,7 @@ function BillDetail() {
     const [electricityNumber, setElectricityNumber] = useState("");
     const [waterNumber, setWaterNumber] = useState("");
     const [apartmentId, setApartmentId] = useState("");
+    const [billDate, setBillDate] = useState("");
     const [paidDate, setPaidDate] = useState("");
     const [status, setStatus] = useState("");
     const [feeTypeId, setFeeTypeId] = useState([]);
@@ -29,6 +30,7 @@ function BillDetail() {
         if (!bill) return;
         setElectricityNumber(bill.electricityNumber);
         setWaterNumber(bill.waterNumber);
+        setBillDate(formatMonth(bill.billDate))
         if (!bill.paidDate) {
             setPaidDate("");
         } else {
@@ -129,6 +131,10 @@ function BillDetail() {
                                     <div className="form-group">
                                         <label>Số nước (m3)</label>
                                         <textarea id="apartmentId" className="form-control" rows="1" value={waterNumber} onChange={(e) => setWaterNumber(e.target.value)} disabled></textarea>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Thời gian</label>
+                                        <textarea id="billDate" className="form-control" rows="1" value={billDate} onChange={(e) => setBillDate(e.target.value)} disabled></textarea>
                                     </div>
                                     <div className="form-group">
                                         <label>Ngày thanh toán</label>

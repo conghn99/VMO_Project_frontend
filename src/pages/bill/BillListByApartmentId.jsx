@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useGetBillsByApartmentIdQuery } from '../../app/services/bill.service';
-import { formatDate } from '../../utils/functionUtils';
+import { formatDate, formatMonth } from '../../utils/functionUtils';
 
 function BillListByApartmentId() {
     const { apartmentId } = useParams();
@@ -22,6 +22,7 @@ function BillListByApartmentId() {
                                   <tr>
                                       <th>Số điện (kWh)</th>
                                       <th>Số nước (m3)</th>
+                                      <th>Thời gian của hóa đơn</th>
                                       <th>Thời gian thanh toán</th>
                                       <th>Trạng thái</th>
                                       <th>Căn hộ</th>
@@ -38,6 +39,7 @@ function BillListByApartmentId() {
                                                 </Link>
                                               </td>
                                               <td>{b.waterNumber}</td>
+                                              <td>{formatMonth(b.billDate)}</td>
                                               <td>{b.paidDate ? formatDate(b.paidDate) : "N/A"}</td>
                                               <td>{b.status ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                                               <td>

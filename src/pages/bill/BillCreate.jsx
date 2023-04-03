@@ -13,6 +13,7 @@ function BillCreate() {
 
     const [electricityNumber, setElectricityNumber] = useState("");
     const [waterNumber, setWaterNumber] = useState("");
+    const [billDate, setBillDate] = useState("");
     const [apartmentId, setApartmentId] = useState("");
     const [feeTypeId, setFeeTypeId] = useState([]);
 
@@ -33,7 +34,7 @@ function BillCreate() {
     }
 
     const handleAddBill = () => {
-        const newBill = {electricityNumber, waterNumber, apartmentId, feeTypeId}
+        const newBill = {electricityNumber, waterNumber, billDate, apartmentId, feeTypeId}
         createBill(newBill)
             .unwrap()
             .then(() => {
@@ -83,7 +84,10 @@ function BillCreate() {
                                         <label>Số nước (m3)</label>
                                         <textarea id="apartmentId" className="form-control" rows="1" value={waterNumber} onChange={(e) => setWaterNumber(e.target.value)}></textarea>
                                     </div>
-
+                                    <div className="form-group">
+                                        <label>Thời gian</label>
+                                        <textarea id="billDate" className="form-control" rows="1" value={billDate} onChange={(e) => setBillDate(e.target.value)}></textarea>
+                                    </div>
                                     <div className="form-group">
                                         <label>Căn hộ</label>
                                         <select id="feeTypeId" className="form-control" value={apartmentId} onChange={(e) => setApartmentId(e.target.value)}>
