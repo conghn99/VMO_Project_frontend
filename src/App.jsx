@@ -13,6 +13,9 @@ import BillListByApartmentId from './pages/bill/BillListByApartmentId'
 import PersonCreate from './pages/person/PersonCreate'
 import PersonDetail from './pages/person/PersonDetail'
 import PersonList from './pages/person/PersonList'
+import PersonSearch from './pages/person/PersonSearch'
+import FeeList from './pages/fee/FeeList'
+import FeeDetail from './pages/fee/FeeDetail'
 
 function App() {
 
@@ -30,12 +33,17 @@ function App() {
             <Route index element={<PersonList />}/>
             <Route path='create' element={<PersonCreate />}/>
             <Route path=':personId' element={<PersonDetail />}/>
+            <Route path='search' element={<PersonSearch />}/>
           </Route>
           <Route path='bills'>
             <Route index element={<BillList />}/>
             <Route path='create' element={<BillCreate />}/>
             <Route path=':billId' element={<BillDetail />}/>
             <Route path='apartment/:apartmentId' element={<BillListByApartmentId />}/>
+          </Route>
+          <Route path='fees'>
+            <Route index element={<FeeList/>}/>
+            <Route path=':feeId' element={<FeeDetail/>}/>
           </Route>
         </Route>
       </Route>

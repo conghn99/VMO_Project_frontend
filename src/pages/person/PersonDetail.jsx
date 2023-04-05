@@ -19,7 +19,7 @@ function PersonDetail() {
     const [representative, setRepresentative] = useState("");
     const [apartmentId, setApartmentId] = useState("");
 
-    const[updatePerson] = useUpdatePersonMutation();
+    const [updatePerson] = useUpdatePersonMutation();
     const navigate = useNavigate();
     const [api, contextHolder] = notification.useNotification();
 

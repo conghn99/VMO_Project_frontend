@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useGetActivePersonQuery } from '../../app/services/person.service';
 import { formatDate } from '../../utils/functionUtils';
+import ReactPaginate from 'react-paginate';
 
 function PersonList() {
-    const { data: persons, isLoading } = useGetActivePersonQuery();
+    const [itemOffset, setItemOffset] = useState(0);
+    const { data: persons, isLoading } = useGetActivePersonQuery(itemOffset);
+
+    const handlePageClick = (event) => {
+        setItemOffset(event.selected);
+    };
 
   if (isLoading) {
     return <h2>Loading ...</h2>;
@@ -30,8 +36,8 @@ function PersonList() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {persons.length > 0 &&
-                                    persons.map((p) => (
+                                {persons.content.length > 0 &&
+                                    persons.content.map((p) => (
                                         <tr key={p.id}>
                                             <td>
                                                 <Link to={`/person/${p.id}`}>
@@ -58,6 +64,31 @@ function PersonList() {
                                     ))}
                             </tbody>
                         </table>
+                        {persons && (
+                            <div className="d-flex justify-content-center mt-3" id="pagination">
+                                <ReactPaginate
+                                    nextLabel="next >"
+                                    onPageChange={handlePageClick}
+                                    pageRangeDisplayed={3}
+                                    marginPagesDisplayed={2}
+                                    pageCount={persons.totalPages}
+                                    previousLabel="< previous"
+                                    pageClassName="page-item"
+                                    pageLinkClassName="page-link"
+                                    previousClassName="page-item"
+                                    previousLinkClassName="page-link"
+                                    nextClassName="page-item"
+                                    nextLinkClassName="page-link"
+                                    breakLabel="..."
+                                    breakClassName="page-item"
+                                    breakLinkClassName="page-link"
+                                    containerClassName="pagination"
+                                    activeClassName="active"
+                                    renderOnZeroPageCount={null}
+                                    // initialPage={2}
+                                />
+                            </div>
+                        )}
                       </div>
                   </div>
               </div>

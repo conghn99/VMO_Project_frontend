@@ -37,6 +37,9 @@ function sidebar() {
                         <li>
                             <Link to={"/person/create"}>Thêm người dân</Link>
                         </li>
+                        <li>
+                            <Link to={"/person/search"}>Tìm kiếm người dân</Link>
+                        </li>
                     </ul>
                 </div>
                 <div className="menu-item">
@@ -50,6 +53,17 @@ function sidebar() {
                         </li>
                         <li>
                             <Link to={"/bills/create"}>Tạo hóa đơn</Link>
+                        </li>
+                    </ul>
+                </div>
+                <div className="menu-item">
+                    <h5>
+                        <span className="d-inline-block me-1"><i className="fa-solid fa-lock"></i></span>
+                        Quản lý phí
+                    </h5>
+                    <ul className="m-0 p-0">
+                        <li>
+                            <Link to={"/fees"}>Danh sách phí</Link>
                         </li>
                     </ul>
                 </div>

@@ -18,7 +18,17 @@ export const feeApi = createApi({
       getFees: builder.query({
         query: () => `fees`,
       }),
+      getFeeById: builder.query({
+        query: (id) => `fees/${id}`,
+      }),
+      updateFee: builder.mutation({
+        query: ({id, ...data}) => ({
+            url : `fees/${id}`,
+            method: "PUT",
+            body: data
+        })
+      }),
     }),
 })
 
-export const { useGetFeesQuery } = feeApi
+export const { useGetFeesQuery, useGetFeeByIdQuery, useUpdateFeeMutation } = feeApi

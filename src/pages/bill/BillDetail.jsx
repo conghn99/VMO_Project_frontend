@@ -21,8 +21,8 @@ function BillDetail() {
     const [status, setStatus] = useState("");
     const [feeTypeId, setFeeTypeId] = useState([]);
 
-    const[updateBill] = useUpdateBillMutation();
-    const[deleteBill] = useDeleteBillMutation();
+    const [updateBill] = useUpdateBillMutation();
+    const [deleteBill] = useDeleteBillMutation();
     const navigate = useNavigate();
     const [api, contextHolder] = notification.useNotification();
 

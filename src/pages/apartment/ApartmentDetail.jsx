@@ -18,8 +18,8 @@ function ApartmentDetail() {
     const [bills, setBills] = useState([]);
     const [persons, setPersons] = useState([]);
 
-    const[updateApartment] = useUpdateApartmentMutation();
-    const[deleteApartment] = useDeleteApartmentMutation();
+    const [updateApartment] = useUpdateApartmentMutation();
+    const [deleteApartment] = useDeleteApartmentMutation();
     const navigate = useNavigate();
     const [api, contextHolder] = notification.useNotification();
 

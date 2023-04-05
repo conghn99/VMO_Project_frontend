@@ -16,13 +16,16 @@ export const personApi = createApi({
       }, }),
     endpoints: (builder) => ({
       getActivePerson: builder.query({
-        query: () => `person`,
+        query: (page) => `person?page=${page}`,
       }),
       getNonActiveOrByApartmentIdPerson: builder.query({
         query: (id) => `person/nonactive/${id}`,
       }),
       getPersonById: builder.query({
         query: (id) => `person/${id}`,
+      }),
+      getPersonByKeyword: builder.query({
+        query: (keyword) => `person/search?keyword=${keyword}`
       }),
       addPerson: builder.mutation({
         query: (data) => ({
@@ -41,4 +44,4 @@ export const personApi = createApi({
     }),
 })
 
-export const { useGetActivePersonQuery, useGetNonActiveOrByApartmentIdPersonQuery, useGetPersonByIdQuery, useAddPersonMutation, useUpdatePersonMutation } = personApi
+export const { useGetActivePersonQuery, useGetNonActiveOrByApartmentIdPersonQuery, useGetPersonByIdQuery, useGetPersonByKeywordQuery, useAddPersonMutation, useUpdatePersonMutation } = personApi

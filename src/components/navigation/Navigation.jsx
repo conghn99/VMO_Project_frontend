@@ -20,9 +20,6 @@ function navigation() {
                     <li>
                         <button className="dropdown-item" href="#" onClick={handleLogout}>Đăng xuất</button>
                     </li>
-                    <li>
-                        <button className="dropdown-item" href="#">Gửi mail</button>
-                    </li>
                 </ul>
             </div>
         </nav>
