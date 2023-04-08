@@ -25,7 +25,14 @@ export const personApi = createApi({
         query: (id) => `person/${id}`,
       }),
       getPersonByKeyword: builder.query({
-        query: (keyword) => `person/search?keyword=${keyword}`
+        query: ({keyword, apartment}) => {
+          const searchParams = new URLSearchParams({
+            ...(keyword && {keyword}),
+            ...(apartment && {apartment})
+          });
+          const url = `person/search?${searchParams.toString()}`;
+          return {url};
+        }
       }),
       addPerson: builder.mutation({
         query: (data) => ({

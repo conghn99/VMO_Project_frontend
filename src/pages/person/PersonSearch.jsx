@@ -2,14 +2,20 @@ import React, { useRef, useState } from 'react'
 import { useGetPersonByKeywordQuery } from '../../app/services/person.service';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../utils/functionUtils';
+import { useGetApartmentsQuery } from '../../app/services/apartment.service';
 
 function PersonSearch() {
-    const [input, setInput] = useState("");
-    const val = useRef();
-    const {data: persons} = useGetPersonByKeywordQuery(input);
+    const [keyword, setKeyword] = useState("");
+    const [apartment, setApartment] = useState("");
+    const keys = useRef();
+    const apart = useRef();
+
+    const {data: persons} = useGetPersonByKeywordQuery({keyword, apartment});
+    const {data: apartments} = useGetApartmentsQuery();
 
     const searchPeople = () => {
-        setInput(val.current.value);
+        setKeyword(keys.current.value);
+        setApartment(apart.current.value);
     }
 
   return (
@@ -17,7 +23,13 @@ function PersonSearch() {
         <div className="row py-2">
             <div className="wrap">
                 <div className="search">
-                    <input type="text" className="searchTerm" placeholder="Bạn đang tìm ai?" ref={val}/>
+                    <input type="text" className="searchTerm" placeholder="Bạn đang tìm ai?" ref={keys}/>
+                    <select ref={apart}>
+                        <option value="">Tất cả</option>
+                        {apartments && apartments.map((a, i) => (
+                            <option value={a.apartmentNumber} key={i}>{a.apartmentNumber}</option>
+                        ))}
+                    </select>
                     <button type="submit" className="searchButton" onClick={searchPeople}>
                         <i className="fa fa-search"></i>
                     </button>
@@ -26,10 +38,10 @@ function PersonSearch() {
         </div>
         <div className="row">
             <div className="col-12">
-                {persons && persons.length === 0 && input !== "" && (
+                {persons && persons.length === 0 && (
                     <h3>Ko có kết quả phù hợp</h3>
                 )}
-                {persons && persons.length > 0 && input !== "" && (
+                {persons && persons.length > 0 && (
                     <div className="card">
                         <div className="card-body">
                             <table className="table table-bordered table-hover">
