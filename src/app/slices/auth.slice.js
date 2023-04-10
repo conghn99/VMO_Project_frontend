@@ -14,7 +14,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state, action) => {
+    logout: () => {
       setDataToLocalStorage("authUser", defaultState)
       return defaultState;
     }

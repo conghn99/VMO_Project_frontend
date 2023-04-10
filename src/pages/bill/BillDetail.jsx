@@ -6,6 +6,8 @@ import { useGetFeesQuery } from '../../app/services/fee.service';
 import { notification } from 'antd';
 import { useDeleteBillMutation, useGetBillByIdQuery, useUpdateBillMutation } from '../../app/services/bill.service';
 import { formatDate, formatMonth } from '../../utils/functionUtils';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function BillDetail() {
     const { billId } = useParams();
@@ -30,11 +32,11 @@ function BillDetail() {
         if (!bill) return;
         setElectricityNumber(bill.electricityNumber);
         setWaterNumber(bill.waterNumber);
-        setBillDate(formatMonth(bill.billDate))
+        setBillDate(formatMonth(bill.billDate));
         if (!bill.paidDate) {
             setPaidDate("");
         } else {
-            setPaidDate(formatDate(bill.paidDate))
+            setPaidDate(new Date(bill.paidDate));
         };
         setStatus(bill.status);
         setFeeTypeId(bill.feeTypeList.map((f) => f.id));
@@ -80,7 +82,7 @@ function BillDetail() {
     }
 
     const handleUpdateBill = () => {
-        const updatedBill = {id: billId, paidDate, feeTypeId}
+        const updatedBill = {id: billId, paidDate: paidDate.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).split('/').join('-'), feeTypeId}
         updateBill(updatedBill)
             .unwrap()
             .then(() => {
@@ -138,7 +140,10 @@ function BillDetail() {
                                     </div>
                                     <div className="form-group">
                                         <label>Ngày thanh toán</label>
-                                        <textarea id="paidDate" className="form-control" rows="1" value={paidDate} onChange={(e) => setPaidDate(e.target.value)}></textarea>
+                                        <DatePicker 
+                                            selected={paidDate} 
+                                            onChange={(date) => setPaidDate(date)} 
+                                            dateFormat={"dd-MM-yyyy"}/>
                                     </div>
                                     <div className="form-group">
                                         <label>Trạng thái</label>

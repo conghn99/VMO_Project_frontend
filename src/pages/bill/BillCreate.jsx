@@ -5,17 +5,18 @@ import { useGetApartmentsQuery } from '../../app/services/apartment.service';
 import { useAddBillMutation } from '../../app/services/bill.service'
 import { useGetFeesQuery } from '../../app/services/fee.service';
 import { notification } from 'antd';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function BillCreate() {
     const {data: apartments} = useGetApartmentsQuery();
     const {data: fees} = useGetFeesQuery();
-    console.log(fees)
 
     const [electricityNumber, setElectricityNumber] = useState("");
     const [waterNumber, setWaterNumber] = useState("");
-    const [billDate, setBillDate] = useState("");
     const [apartmentId, setApartmentId] = useState("");
     const [feeTypeId, setFeeTypeId] = useState([]);
+    const [billDate, setBillDate] = useState("");
 
     const[createBill] = useAddBillMutation();
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ function BillCreate() {
     }
 
     const handleAddBill = () => {
-        const newBill = {electricityNumber, waterNumber, billDate, apartmentId, feeTypeId}
+        const newBill = {electricityNumber, waterNumber, billDate: billDate.toLocaleDateString('en-GB', {month: '2-digit', year: 'numeric'}).split('/').join('-'), apartmentId, feeTypeId}
         createBill(newBill)
             .unwrap()
             .then(() => {
@@ -86,7 +87,13 @@ function BillCreate() {
                                     </div>
                                     <div className="form-group">
                                         <label>Thời gian</label>
-                                        <textarea id="billDate" className="form-control" rows="1" value={billDate} onChange={(e) => setBillDate(e.target.value)}></textarea>
+                                        <DatePicker 
+                                            selected={billDate} 
+                                            onChange={(date) => setBillDate(date)} 
+                                            dateFormat="MM/yyyy"
+                                            showMonthYearPicker
+                                            showFullMonthYearPicker
+                                            />
                                     </div>
                                     <div className="form-group">
                                         <label>Căn hộ</label>

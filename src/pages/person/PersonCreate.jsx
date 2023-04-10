@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useGetApartmentsQuery } from '../../app/services/apartment.service';
 import { useAddPersonMutation } from '../../app/services/person.service';
 import { notification } from 'antd';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function PersonCreate() {
     const {data: apartments} = useGetApartmentsQuery();
@@ -10,17 +12,17 @@ function PersonCreate() {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [cardIdNumber, setCardIdNumber] = useState("");
-    const [birthDate, setBirthDate] = useState("");
     const [gender, setGender] = useState(true);
     const [representative, setRepresentative] = useState(false);
     const [apartmentId, setApartmentId] = useState("");
+    const [startDate, setStartDate] = useState("");
 
     const[addPerson] = useAddPersonMutation();
     const navigate = useNavigate();
     const [api, contextHolder] = notification.useNotification();
 
     const handleAddPerson = () => {
-        const newPerson = {name, email, phoneNumber, cardIdNumber, birthDate, gender, representative, apartmentId}
+        const newPerson = {name, email, phoneNumber, cardIdNumber, birthDate: startDate.toLocaleDateString('en-GB', {day: 'numeric', month: 'numeric', year: 'numeric'}).split('/').join('-'), gender, representative, apartmentId}
         addPerson(newPerson)
             .unwrap()
             .then(() => {
@@ -79,7 +81,10 @@ function PersonCreate() {
                                     </div>
                                     <div className="form-group">
                                         <label>Ngày sinh</label>
-                                        <textarea id="birthDate" className="form-control" rows="1" value={birthDate} onChange={(e) => setBirthDate(e.target.value)}></textarea>
+                                        <DatePicker 
+                                            selected={startDate} 
+                                            onChange={(date) => setStartDate(date)} 
+                                            dateFormat={"dd-MM-yyyy"}/>
                                     </div>
                                     <div className="form-group">
                                         <label>Giới tính</label>
