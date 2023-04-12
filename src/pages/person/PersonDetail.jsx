@@ -32,7 +32,7 @@ function PersonDetail() {
         setBirthDate(formatDate(person.birthDate));
         setGender(person.gender);
         setRepresentative(person.representative);
-        if (person.apartment === undefined) {
+        if (!person.apartment) {
             setApartmentId(0)
         } else {
             setApartmentId(person.apartment.id);
