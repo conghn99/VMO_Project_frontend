@@ -41,8 +41,8 @@ function BillList() {
                                               <td>{b.paidDate ? formatDate(b.paidDate) : "N/A"}</td>
                                               <td>{b.status ? "Đã thanh toán" : "Chưa thanh toán"}</td>
                                               <td>
-                                                <Link to={`/apartments/${b.apartment.id}`}>
-                                                    {b.apartment.apartmentNumber}
+                                                <Link to={b.apartment ? `/apartments/${b.apartment.id}` : ""}>
+                                                    {b.apartment ? b.apartment.apartmentNumber : "Không thuộc về căn hộ nào"}
                                                 </Link>
                                               </td>
                                               <td>{b.feeTypeList.map((f) => f.name).join(", ")}</td>
